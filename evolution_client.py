@@ -93,8 +93,14 @@ class EvolutionClient:
 
         Valida la forma de la respuesta con dict.get()/isinstance, nunca
         indexa a ciegas.
+
+        Evolution API exige el query param `getParticipants` en esta llamada
+        (confirmado contra la VPS real: sin él responde HTTP 400 "The
+        getParticipants needs to be informed in the query"). Se pide en
+        "false" porque acá solo hace falta resolver el id del grupo por
+        nombre, no la lista de participantes.
         """
-        data = self._get(GROUPS_PATH)
+        data = self._get(GROUPS_PATH, params={"getParticipants": "false"})
 
         if isinstance(data, list):
             groups = data
