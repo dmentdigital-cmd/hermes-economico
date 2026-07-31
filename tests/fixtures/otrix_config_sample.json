@@ -1,0 +1,6 @@
+{
+  "_fixture": "SINTETICA - config de ejemplo usada solo por tests/test_project_digest.py. No es la config real de produccion (esa vive en config/otrix.json). Valores de grupo/palabras_clave inventados.",
+  "grupo": "Grupo De Prueba Ficticio",
+  "palabras_clave": ["urgente", "importante"],
+  "frecuencia": "diaria"
+}

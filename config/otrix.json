@@ -1,0 +1,10 @@
+{
+  "_placeholder": "PENDIENTE DE AJUSTAR: 'palabras_clave' abajo son valores de EJEMPLO, no las palabras reales del proyecto. El usuario todavia no definio la lista real. Reemplazar por las palabras reales editando SOLO este archivo (no hace falta tocar codigo) antes de que la Fase 5 (flip a no_agent:true, cron activo de verdad) tenga sentido en produccion.",
+  "grupo": "Marketeros Otrix 🔥",
+  "palabras_clave": [
+    "PALABRA_CLAVE_1",
+    "PALABRA_CLAVE_2",
+    "PALABRA_CLAVE_3"
+  ],
+  "frecuencia": "diaria"
+}
