@@ -1,0 +1,41 @@
+{
+  "_marcador": "FIXTURE SINTETICA - armada a mano por el agente de build, NO es una captura real de Evolution API. Se reemplaza en un commit posterior por una fixture real anonimizada, capturada en la VPS (ver STACK-PROFILE-hermes-economico.md, seccion Testing, y Blueprint 10.5).",
+  "groups_response": [
+    {
+      "id": "120363000000000001@g.us",
+      "subject": "Marketeros Otrix"
+    },
+    {
+      "id": "120363000000000002@g.us",
+      "subject": "Otro Grupo Ficticio"
+    }
+  ],
+  "messages_response": {
+    "messages": [
+      {
+        "id": "MSG-FICTICIO-001",
+        "pushName": "Persona Ficticia Uno",
+        "messageTimestamp": 1700000000,
+        "message": {
+          "conversation": "Mensaje de prueba numero uno, contenido inventado."
+        }
+      },
+      {
+        "id": "MSG-FICTICIO-002",
+        "pushName": "Persona Ficticia Dos",
+        "messageTimestamp": 1700000100,
+        "message": {
+          "conversation": "Mensaje de prueba numero dos, contenido inventado."
+        }
+      },
+      {
+        "id": "MSG-FICTICIO-003",
+        "pushName": "Persona Ficticia Uno",
+        "messageTimestamp": 1700000200,
+        "message": {
+          "conversation": "Mensaje de prueba numero tres, contenido inventado."
+        }
+      }
+    ]
+  }
+}
