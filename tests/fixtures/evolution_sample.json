@@ -1,32 +1,35 @@
 {
-  "_marcador": "FIXTURE SINTETICA - armada a mano por el agente de build, NO es una captura real de Evolution API. Se reemplaza en un commit posterior por una fixture real anonimizada, capturada en la VPS (ver STACK-PROFILE-hermes-economico.md, seccion Testing, y Blueprint 10.5).",
+  "_marcador": "FIXTURE SINTETICA - forma estructural fiel a Evolution API real (confirmada en vivo contra la VPS durante la Fase 2: corrida real con exito, 49 mensajes / 2 llamadas HTTP), pero TODOS los valores (IDs, nombres, telefonos, timestamps, contenido de mensajes) son inventados. No es una captura ni una anonimizacion de datos reales de terceros -> decision explicita del usuario en la Fase 2 para evitar cualquier riesgo de manejar datos reales de terceros, en reemplazo del plan original de 'grabar y anonimizar una respuesta real' descrito en el Blueprint 10.5.",
   "groups_response": [
     {
-      "id": "120363000000000001@g.us",
+      "id": "111111111111@g.us",
       "subject": "Marketeros Otrix"
     },
     {
-      "id": "120363000000000002@g.us",
+      "id": "333333333333@g.us",
       "subject": "Otro Grupo Ficticio"
     }
   ],
   "messages_response": {
     "messages": {
       "total": 3,
-      "pages": 1,
-      "currentPage": 1,
       "records": [
         {
-          "id": "MSG-FICTICIO-001",
+          "id": "3EB0FICTICIO0001",
           "key": {
-            "remoteJid": "120363000000000001@g.us",
-            "fromMe": false,
-            "id": "MSG-FICTICIO-001"
+            "id": "3EB0FICTICIO0001",
+            "fromMe": true,
+            "remoteJid": "111111111111@g.us"
           },
-          "pushName": "Persona Ficticia Uno",
+          "pushName": "Cuenta Bot Ficticia",
           "messageType": "conversation",
           "message": {
-            "conversation": "Mensaje de prueba numero uno, contenido inventado."
+            "conversation": "Mensaje de prueba inventado numero uno, sin relacion con contenido real.",
+            "messageContextInfo": {
+              "threadId": "FICTICIO-THREAD-0001",
+              "messageSecret": "QkFTRTY0X0lOVkVOVEFEQQ==",
+              "limitSharingV2": false
+            }
           },
           "messageTimestamp": 1700000000,
           "instanceId": "instancia-ficticia",
@@ -35,39 +38,95 @@
           "MessageUpdate": []
         },
         {
-          "id": "MSG-FICTICIO-002",
+          "id": "3EB0FICTICIO0002",
           "key": {
-            "remoteJid": "120363000000000001@g.us",
+            "id": "3EB0FICTICIO0002",
             "fromMe": false,
-            "id": "MSG-FICTICIO-002"
+            "remoteJid": "111111111111@g.us",
+            "participant": "222222222222@lid",
+            "addressingMode": "lid",
+            "participantAlt": "573000000001@s.whatsapp.net"
           },
           "pushName": "Persona Ficticia Dos",
-          "messageType": "conversation",
+          "messageType": "reactionMessage",
           "message": {
-            "conversation": "Mensaje de prueba numero dos, contenido inventado."
+            "reactionMessage": {
+              "key": {
+                "id": "3EB0FICTICIO0001",
+                "fromMe": true,
+                "remoteJid": "111111111111@g.us"
+              },
+              "text": "👍",
+              "senderTimestampMs": {
+                "low": 1700000900,
+                "high": 0,
+                "unsigned": false
+              }
+            }
           },
-          "messageTimestamp": 1700000100,
+          "messageTimestamp": 1700000900,
           "instanceId": "instancia-ficticia",
-          "source": "android",
+          "source": "ios",
           "contextInfo": null,
           "MessageUpdate": []
         },
         {
-          "id": "MSG-FICTICIO-003",
+          "id": "3EB0FICTICIO0003",
           "key": {
-            "remoteJid": "120363000000000001@g.us",
+            "id": "3EB0FICTICIO0003",
             "fromMe": false,
-            "id": "MSG-FICTICIO-003"
+            "remoteJid": "111111111111@g.us",
+            "participant": "444444444444@lid",
+            "addressingMode": "lid",
+            "participantAlt": "573000000002@s.whatsapp.net"
           },
-          "pushName": "Persona Ficticia Uno",
-          "messageType": "conversation",
+          "pushName": "Persona Ficticia Tres",
+          "messageType": "imageMessage",
           "message": {
-            "conversation": "Mensaje de prueba numero tres, contenido inventado."
+            "imageMessage": {
+              "url": "https://ejemplo-ficticio.invalid/media/FICTICIO0003.enc",
+              "width": 960,
+              "height": 1280,
+              "caption": "Imagen de prueba inventada, sin contenido real.",
+              "mediaKey": "QkFTRTY0X01FRElBS0VZX0ZJQ1RJQ0lB",
+              "mimetype": "image/jpeg",
+              "viewOnce": false,
+              "directPath": "/v/t62.7118-24/FICTICIO_PATH",
+              "fileLength": {
+                "low": 123456,
+                "high": 0,
+                "unsigned": true
+              },
+              "fileSha256": "RklDVElDSU9fU0hBMjU2X0lOVkVOVEFETw==",
+              "annotations": [],
+              "scanLengths": [],
+              "fileEncSha256": "RklDVElDSU9fRU5DX1NIQTI1Nl9JTlZFTlRBRE8=",
+              "jpegThumbnail": "BASE64_INVENTADO",
+              "mediaKeyTimestamp": {
+                "low": 1700001000,
+                "high": 0,
+                "unsigned": false
+              },
+              "interactiveAnnotations": []
+            }
           },
-          "messageTimestamp": 1700000200,
+          "messageTimestamp": 1700001000,
           "instanceId": "instancia-ficticia",
           "source": "android",
-          "contextInfo": null,
+          "contextInfo": {
+            "stanzaId": "3EB0FICTICIO0001",
+            "participant": "222222222222@lid",
+            "mentionedJid": [],
+            "groupMentions": [],
+            "quotedMessage": {
+              "conversation": "Mensaje de prueba inventado numero uno, sin relacion con contenido real."
+            },
+            "disappearingMode": {
+              "initiator": "CHANGED_IN_CHAT",
+              "trigger": "CHAT_SETTING"
+            },
+            "statusAttributions": []
+          },
           "MessageUpdate": []
         }
       ]
