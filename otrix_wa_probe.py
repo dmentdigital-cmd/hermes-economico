@@ -12,7 +12,9 @@ from env_loader import EnvLoadError, load_env, require
 from evolution_client import EvolutionClient, EvolutionClientError
 
 # Constante local: este script SÍ conoce a OTRIX, evolution_client.py no.
-GRUPO = "Marketeros Otrix"
+# Nombre exacto confirmado contra la lista real de grupos de la instancia
+# Evolution API en la VPS (incluye el emoji de fuego al final).
+GRUPO = "Marketeros Otrix \U0001F525"
 
 ENV_PATH = Path(__file__).resolve().parent / ".env"
 
