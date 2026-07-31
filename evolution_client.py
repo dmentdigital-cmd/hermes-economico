@@ -16,11 +16,10 @@ from typing import Any, Dict, List, Optional
 import requests
 
 # --- Constantes de conexión ------------------------------------------------
-# El endpoint exacto todavía NO está confirmado contra la Evolution API real
-# de la VPS (ver Blueprint sección 4 / STACK-PROFILE, "Dependencia externa
-# preexistente"). Los paths de abajo son la mejor suposición según la forma
-# habitual de la API de Evolution. Si la VPS confirma otra forma, este es el
-# ÚNICO lugar del proyecto que hay que corregir.
+# fetchAllGroups y findMessages ya están confirmados contra la Evolution API
+# real de la VPS (ver aprendizajes de la Fase 2 en BUILD-STATE). Si la VPS
+# cambiara de forma en el futuro, este sigue siendo el ÚNICO lugar del
+# proyecto que hay que corregir.
 BASE_URL = "http://127.0.0.1:8085"
 INSTANCE_NAME = "WHATSAPP DMENTE DIGITAL"
 
@@ -88,6 +87,35 @@ class EvolutionClient:
         except ValueError as exc:
             raise EvolutionClientError(f"Respuesta no es JSON válido desde {url}") from exc
 
+    def _post(self, path: str, body: Dict[str, Any]) -> Any:
+        """Hace un único POST con body JSON, cuenta la llamada y devuelve el
+        JSON parseado.
+
+        Levanta EvolutionClientError en cualquier fallo. Cero reintentos,
+        mismo criterio que `_get`.
+        """
+        url = f"{self.base_url}{path}"
+        self.call_count += 1
+        try:
+            response = requests.post(
+                url, headers=self._headers(), json=body, timeout=TIMEOUT_SECONDS
+            )
+        except requests.exceptions.Timeout as exc:
+            raise EvolutionClientError(f"Timeout llamando a {url}") from exc
+        except requests.exceptions.RequestException as exc:
+            raise EvolutionClientError(f"Error de red llamando a {url}: {exc}") from exc
+
+        if response.status_code != 200:
+            raise EvolutionClientError(
+                f"Evolution API respondió HTTP {response.status_code} en {url}: "
+                f"{response.text[:200]}"
+            )
+
+        try:
+            return response.json()
+        except ValueError as exc:
+            raise EvolutionClientError(f"Respuesta no es JSON válido desde {url}") from exc
+
     def find_group_id(self, group_name: str) -> str:
         """Resuelve el id interno del grupo a partir de su nombre visible.
 
@@ -131,21 +159,30 @@ class EvolutionClient:
     def fetch_recent_messages(self, group_name: str) -> List[Dict[str, Any]]:
         """Resuelve el grupo por nombre y trae sus mensajes recientes.
 
-        Devuelve la lista de mensajes (puede ser vacía). Levanta
+        findMessages es POST, no GET (confirmado contra la VPS real: GET
+        responde 404 "Cannot GET"). El body exacto confirmado es
+        `{"where": {"key": {"remoteJid": <group_id>}}, "limit": ...}`.
+
+        OJO: aunque se manda "limit" en el body, la Evolution API real
+        observada en la VPS lo ignoró y devolvió TODO el historial
+        disponible. Este método nunca asume que el servidor limita la
+        cantidad; si en el futuro hace falta acotar, se hace del lado
+        cliente después de recibir la respuesta completa.
+
+        Devuelve la lista de mensajes (`records`, puede ser vacía). Levanta
         EvolutionClientError en cualquier fallo, incluida forma inesperada.
         """
         group_id = self.find_group_id(group_name)
-        data = self._get(MESSAGES_PATH, params={"remoteJid": group_id})
+        data = self._post(
+            MESSAGES_PATH,
+            body={"where": {"key": {"remoteJid": group_id}}},
+        )
 
-        if isinstance(data, list):
-            messages = data
-        elif isinstance(data, dict):
-            messages = data.get("messages")
-        else:
-            messages = None
+        messages_obj = data.get("messages") if isinstance(data, dict) else None
+        records = messages_obj.get("records") if isinstance(messages_obj, dict) else None
 
-        if not isinstance(messages, list):
+        if not isinstance(records, list):
             raise EvolutionClientError(
                 f"Forma de respuesta inesperada al listar mensajes: {type(data).__name__}"
             )
-        return messages
+        return records

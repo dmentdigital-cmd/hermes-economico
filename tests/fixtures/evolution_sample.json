@@ -11,31 +11,66 @@
     }
   ],
   "messages_response": {
-    "messages": [
-      {
-        "id": "MSG-FICTICIO-001",
-        "pushName": "Persona Ficticia Uno",
-        "messageTimestamp": 1700000000,
-        "message": {
-          "conversation": "Mensaje de prueba numero uno, contenido inventado."
+    "messages": {
+      "total": 3,
+      "pages": 1,
+      "currentPage": 1,
+      "records": [
+        {
+          "id": "MSG-FICTICIO-001",
+          "key": {
+            "remoteJid": "120363000000000001@g.us",
+            "fromMe": false,
+            "id": "MSG-FICTICIO-001"
+          },
+          "pushName": "Persona Ficticia Uno",
+          "messageType": "conversation",
+          "message": {
+            "conversation": "Mensaje de prueba numero uno, contenido inventado."
+          },
+          "messageTimestamp": 1700000000,
+          "instanceId": "instancia-ficticia",
+          "source": "android",
+          "contextInfo": null,
+          "MessageUpdate": []
+        },
+        {
+          "id": "MSG-FICTICIO-002",
+          "key": {
+            "remoteJid": "120363000000000001@g.us",
+            "fromMe": false,
+            "id": "MSG-FICTICIO-002"
+          },
+          "pushName": "Persona Ficticia Dos",
+          "messageType": "conversation",
+          "message": {
+            "conversation": "Mensaje de prueba numero dos, contenido inventado."
+          },
+          "messageTimestamp": 1700000100,
+          "instanceId": "instancia-ficticia",
+          "source": "android",
+          "contextInfo": null,
+          "MessageUpdate": []
+        },
+        {
+          "id": "MSG-FICTICIO-003",
+          "key": {
+            "remoteJid": "120363000000000001@g.us",
+            "fromMe": false,
+            "id": "MSG-FICTICIO-003"
+          },
+          "pushName": "Persona Ficticia Uno",
+          "messageType": "conversation",
+          "message": {
+            "conversation": "Mensaje de prueba numero tres, contenido inventado."
+          },
+          "messageTimestamp": 1700000200,
+          "instanceId": "instancia-ficticia",
+          "source": "android",
+          "contextInfo": null,
+          "MessageUpdate": []
         }
-      },
-      {
-        "id": "MSG-FICTICIO-002",
-        "pushName": "Persona Ficticia Dos",
-        "messageTimestamp": 1700000100,
-        "message": {
-          "conversation": "Mensaje de prueba numero dos, contenido inventado."
-        }
-      },
-      {
-        "id": "MSG-FICTICIO-003",
-        "pushName": "Persona Ficticia Uno",
-        "messageTimestamp": 1700000200,
-        "message": {
-          "conversation": "Mensaje de prueba numero tres, contenido inventado."
-        }
-      }
-    ]
+      ]
+    }
   }
 }
