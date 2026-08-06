@@ -1,17 +1,20 @@
-# Contexto mínimo de OTRIX
+# OTRIX - Contexto Cron Minimo
 
-> [PENDIENTE - completar] Este archivo es un placeholder. El usuario lo
-> completa más adelante editando SOLO este archivo, sin tocar código.
-> Ningún dato de negocio real de OTRIX está cargado todavía.
+## Equipo: Mauricio (CEO), Dani (Marketing), Diego (Tech), Issy/Meli (Ops)
 
-## Qué es OTRIX
+## Decisiones Clave
+- CRM: Pancake ($9/red) prueba 1.5 meses. Si falla: Go High Level ($97/mes)
+- Precios: Active Plus Basic $60k, Full $130k
+- Lanzamientos: Electric Smog próxima semana, Active Plus Basic finales agosto
 
-[PENDIENTE - completar]
+## Estado Técnico
+- Google Analytics: píxel instalado
+- Microsoft Clarity: script instalado
+- Píxel Facebook + CAPI: pendiente
+- Pancake: pendiente
 
-## Pendientes
-
-[PENDIENTE - completar]
-
-## Contactos clave
-
-[PENDIENTE - completar]
+## Action Items
+- Mauricio: crear cuenta GA
+- Diego: instalar GA, Clarity, Píxel Meta
+- Dani: ingresar Pancake
+- Reunión: Martes 10:00 AM
