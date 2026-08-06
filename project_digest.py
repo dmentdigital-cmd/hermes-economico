@@ -18,6 +18,7 @@ la config es inválida o Evolution API falla. Cero reintentos (Blueprint
 """
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
@@ -93,8 +94,13 @@ def _cargar_estado(path: Union[str, Path]) -> Dict[str, Any]:
     Si el archivo no existe, no es JSON válido, o no tiene la forma
     esperada (`{"ids_vistos": [...]}` con strings), se trata como si fuera
     la primera corrida: se devuelve el estado por defecto, nunca se levanta
-    una excepción. `_guardar_estado` corrige el archivo corrupto en la
-    próxima escritura.
+    una excepción.
+
+    IMPORTANTE (concurrencia): este proyecto diseña una ejecución por proyecto
+    (máximo 1 run/día por proyecto en cron). Si en el futuro hay múltiples
+    runs simultáneos del mismo proyecto, esta función es vulnerable a race
+    conditions (partial read de writes en progreso). En ese caso, agregar
+    file locking explícito (fcntl.flock en Unix, portalocker en Windows).
     """
     estado_path = Path(path)
     default: Dict[str, Any] = {"ids_vistos": []}
@@ -119,13 +125,26 @@ def _cargar_estado(path: Union[str, Path]) -> Dict[str, Any]:
 
 
 def _guardar_estado(path: Union[str, Path], estado: Dict[str, Any]) -> None:
-    """Escribe el estado de esta corrida a disco, creando la carpeta
-    contenedora si hace falta. Sobreescribe siempre el archivo completo."""
+    """Escribe el estado de esta corrida a disco de forma atomic.
+
+    Crea la carpeta contenedora si hace falta, escribe a un temp file en
+    el mismo directorio, y luego hace rename atomic. Si el rename falla,
+    el archivo original queda intacto (no hay corrupción parcial).
+    """
     estado_path = Path(path)
     estado_path.parent.mkdir(parents=True, exist_ok=True)
-    estado_path.write_text(
-        json.dumps(estado, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+
+    contenido = json.dumps(estado, ensure_ascii=False, indent=2)
+
+    try:
+        fd, temp_path = tempfile.mkstemp(
+            dir=estado_path.parent, prefix=".tmp_", suffix=".json"
+        )
+        with open(fd, "w", encoding="utf-8") as tmp_file:
+            tmp_file.write(contenido)
+        Path(temp_path).replace(estado_path)
+    except Exception as exc:
+        raise ProjectDigestError(f"No se pudo guardar estado en {estado_path}: {exc}") from exc
 
 
 def _extraer_texto(mensaje: Any) -> str:
